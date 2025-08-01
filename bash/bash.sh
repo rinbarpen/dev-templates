@@ -9,4 +9,11 @@ echo "export CUDA_HOME=/usr/local/cuda" >> ~/.bashrc
 echo "export PATH=$CUDA_HOME/bin:$PATH" >> ~/.bashrc
 echo "export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH" >> ~/.bashrc
 
+cp ./.bash_functions ~/.bash_functions
+echo """
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
+fi
+""" >> ~/.bashrc
+
 source ~/.bashrc

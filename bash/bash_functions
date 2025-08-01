@@ -1,0 +1,68 @@
+proxy_on() {
+    # 定义代理地址 (请根据你的实际情况修改)
+    # 你也可以通过参数传入，例如：proxy_on socks5://127.0.0.1:1080
+    local PROXY_ADDR="$1"
+    if [ -z "$PROXY_ADDR" ]; then
+        PROXY_ADDR="http://127.0.0.1:18080" # 默认代理地址
+    fi
+
+    # 设置HTTP和HTTPS代理
+    export HTTP_PROXY="$PROXY_ADDR"
+    export HTTPS_PROXY="$PROXY_ADDR"
+    export http_proxy="$PROXY_ADDR"
+    export https_proxy="$PROXY_ADDR"
+
+    # 设置FTP代理 (如果需要)
+    #export FTP_PROXY="$PROXY_ADDR"
+    #export ftp_proxy="$PROXY_ADDR"
+
+    # 设置SOCKS代理 (如果你的代理是SOCKS5，也可以用ALL_PROXY)
+    export ALL_PROXY="socks5://127.0.0.1:1080"
+    export all_proxy="socks5://127.0.0.1:1080"
+
+    # 设置不走代理的地址，包括本地地址
+    export NO_PROXY="localhost,127.0.0.1,::1"
+    export no_proxy="localhost,127.0.0.1,::1"
+
+    echo "✅ 代理已开启：$PROXY_ADDR"
+    echo "   (不走代理：$NO_PROXY)"
+}
+
+proxy_off() {
+    # 清除HTTP和HTTPS代理
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset http_proxy
+    unset https_proxy
+
+    # 清除FTP代理
+    unset FTP_PROXY
+    unset ftp_proxy
+
+    # 清除SOCKS代理 (如果设置了ALL_PROXY)
+    unset ALL_PROXY
+    unset all_proxy
+
+    # 清除不走代理的地址
+    unset NO_PROXY
+    unset no_proxy
+
+    echo "❌ 代理已关闭"
+}
+
+proxy_status() {
+    echo "--- 代理状态 ---"
+    if [ -n "$HTTP_PROXY" ]; then echo "HTTP_PROXY   : $HTTP_PROXY"; fi
+    if [ -n "$HTTPS_PROXY" ]; then echo "HTTPS_PROXY  : $HTTPS_PROXY"; fi
+    if [ -n "$http_proxy" ]; then echo "http_proxy   : $http_proxy"; fi
+    if [ -n "$https_proxy" ]; then echo "https_proxy  : $https_proxy"; fi
+    if [ -n "$FTP_PROXY" ]; then echo "FTP_PROXY    : $FTP_PROXY"; fi
+    if [ -n "$ALL_PROXY" ]; then echo "ALL_PROXY    : $ALL_PROXY"; fi
+    if [ -n "$NO_PROXY" ]; then echo "NO_PROXY     : $NO_PROXY"; fi
+
+    # 检查是否有任何代理变量被设置
+    if [ -z "$HTTP_PROXY" ] && [ -z "$HTTPS_PROXY" ] && [ -z "$ALL_PROXY" ]; then
+        echo "当前没有设置代理环境变量。"
+    fi
+    echo "----------------"
+}

@@ -11,11 +11,9 @@ npm install -g n8n
 npm install -g @google/gemini-cli
 npm install -g @anthropic-ai/claude-code
 
-# 下载 anydesk
 sudo dpkg -i anydesk.deb
-# 下载 todesk
 sudo dpkg -i todesk.deb
-# 下载皎月连
+sudo dpkg -i sunshine.deb
 
 # 安装 btop
 sudo apt install btop
