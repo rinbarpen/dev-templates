@@ -12,7 +12,7 @@ now=$(date +"%Y-%m-%d_%H-%M-%S")
 comment="$name $now"
 keyPath="$HOME/.ssh/ssh_${targetMachine}_${name}"
 
-ssh-keygen -t ed25519 -C "$comment" -f $keyPath
+ssh-keygen -t ed25519 -C "$comment" -N "" -f $keyPath
 
 mv "${keyPath}" "$HOME/.ssh/"
 ssh-copy-id "${keyPath}.pub" "${serv_user}@${serv_ip}"
