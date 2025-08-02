@@ -23,6 +23,6 @@ ssh-keygen -t ed25519 -C "$comment" -N "" -f $keyPath
 if [ "$disable_send" = false ]; then
   mv "${keyPath}" ./
 else
-  scp "${keyPath}" "${remote_user}@${remote_ip}:~/.ssh/authorized_keys"
+  scp "${keyPath}" "${remote_user}@${remote_ip}:~/.ssh/"
 fi
 cat "${keyPath}.pub" >> "$HOME/.ssh/authorized_keys"
